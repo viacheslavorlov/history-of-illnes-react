@@ -1,5 +1,5 @@
 import './App.css';
-import DaylyNotes from "../dayli-notes/DaylyNotes";
+import DaylyNotes from "../dayli-notes/dayli-notes-page/DaylyNotes";
 import {Provider} from "react-redux";
 import {store} from "../redux-store/store";
 

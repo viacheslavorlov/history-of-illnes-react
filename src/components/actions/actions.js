@@ -1,0 +1,1 @@
+export const daylyNotes = (object) => ({type: 'DAYLYNOTES', payload: object});

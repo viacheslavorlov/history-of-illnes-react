@@ -1,0 +1,46 @@
+.daiary {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    margin: 0 auto;
+    font-size: 17px;
+}
+
+.daiary__item {
+    display: flex;
+    flex-direction: column;
+}
+
+.daiary__item__header {
+    font-size: 1.3em;
+    font-weight: bolder;
+}
+
+.daiary__item__date {
+    font-size: 1em;
+    font-weight: bold;
+    font-style: italic;
+    text-align: justify;
+}
+
+.daiary__item__info {
+    text-align: justify;
+}
+
+.daiary__item__diagnosis {
+    font-size: 1em;
+    font-weight: bold;
+    font-style: italic;
+    text-align: justify;
+}
+
+.daiary__item__doctor {
+    font-size: 1em;
+    font-weight: bold;
+    font-style: italic;
+    text-align: end;
+}
+
+.daiary__item__span {
+    height: 3em;
+}

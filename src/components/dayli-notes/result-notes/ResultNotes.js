@@ -37,18 +37,25 @@ const ResultNotes = () => {
 			if (min < 10) min = '0' + min;
 
 			let doctor = 'лечащего врача';
+			let dayOfOperation = null;
 
-			if (i === result.length - 1 || i === 1 ) doctor = 'заведующего отделением';
-			console.log('проверка жалоб', item, new Date(stateFromStore.operationDay))
+			if (i === result.length - 1 || i === 0) {
+				doctor = 'заведующего отделением';
+			}
+			if (item.toLocaleDateString() === new Date(stateFromStore.operationDay).toLocaleDateString()) {
+				dayOfOperation = 'Осмотр перед операцией.';
+			}
+			console.log('item', item, new Date(stateFromStore.operationDay)) // ! оптимизировать - вытащить из объекта
 			let complains = () => {
 				switch (i) {
 					case 0:
 						return 'прежние' ;
 					case 1:
-						return (item > new Date(stateFromStore.operationDay)) ?
+						return (item.toLocaleString() > new Date(stateFromStore.operationDay).toLocaleString()) ? // ! оптимизировать - вытащить из
+							// объекта
 							'боли в области послеоперационной(ых) ран(ы)': 'прежние' ;
 					case 2:
-						return (item > new Date(stateFromStore.operationDay)) ?
+						return (item.toLocaleString() > new Date(stateFromStore.operationDay).toLocaleString()) ?// ! оптимизировать - вытащить из объекта
 							'боли в области послеоперационной(ых) ран(ы)': 'прежние' ;
 					case resultLastIndex:
 						return 'нет';
@@ -65,10 +72,10 @@ const ResultNotes = () => {
 			const stul = () => {
 				switch (i) {
 					case 0:
-						return (item === new Date(stateFromStore.operationDay)) ?
+						return (item === new Date(stateFromStore.operationDay)) ? // ! оптимизировать - вытащить из объекта
 							'Стула не было' : 'Стул';
 					case 1, 2:
-						return (item > new Date(stateFromStore.operationDay)) ?
+						return (item > new Date(stateFromStore.operationDay)) ? // ! оптимизировать - вытащить из объекта
 							'Стула не было' : 'Стул';
 					default:
 						return 'Стул оформленный, дефекация умеренно болезенная';
@@ -99,9 +106,10 @@ const ResultNotes = () => {
 
 			console.log("день недели", item.getDay())
 			return (
-				<div className={"daiary__item"}>
+				<section className={"daiary__item breake__page"}>
 					<div className={"daiary__item__header"}>Осмотр {doctor}.</div>
 					<div className={"daiary__item__date"}>Дата: {item.toLocaleDateString()} Время: 8:{min}</div>
+					<div className={"daiary__item__date"}>{dayOfOperation}</div>
 					<div className={"daiary__item__info"}>Жалобы: {complains()}.</div>
 					<div className={"daiary__item__info"}>Состояние удовлетворительное.</div>
 					<div className={"daiary__item__info"}>Кожный покров чистый, обычной окраски.</div>
@@ -116,15 +124,20 @@ const ResultNotes = () => {
 					<div className={"daiary__item__info"}>Дополнения к лечению: нет.</div>
 					<div className={"daiary__item__info"}>{discharge}</div>
 					<div className="daiary__item__doctor">Врач: Орлов В.И.</div>
-					<div className={"daiary__item__span"}></div>
-				</div>
+					<div className="daiary__item__doctor">
+						{doctor === 'заведующего отделением' ? 'Заведующий отделением: Богов В.М.' : null}
+						</div>
+					<div className={"daiary__item__span"}>_</div>
+				</section>
 			)
 		});
 	}
 
 	return (
 		<div className="daiary">
-			{formDayList(stateFromStore.dayOut, stateFromStore.dayIn)}
+			{formDayList(stateFromStore.dayOut, stateFromStore.dayIn)} {
+				// ! оптимизировать - вытащить из объекта
+			}
 		</div>
 	);
 };

@@ -4,12 +4,14 @@ import * as Yup from 'yup';
 import {useDispatch, useSelector} from "react-redux";
 import {daylyNotes} from "../../actions/actions";
 
+import './FormData.css';
+
 const FormData = () => {
 	const dispatch = useDispatch();
 	const state = useSelector(stateAll => stateAll)
 	console.log(state)
 	return (
-		<>
+		<div>
 			<h2>Заполните данные пациента.</h2>
 			<Formik initialValues={{
 				name: '',
@@ -91,7 +93,7 @@ const FormData = () => {
 					<button type="submit">Принять</button>
 				</Form>
 			</Formik>
-		</>
+		</div>
 	)
 };
 

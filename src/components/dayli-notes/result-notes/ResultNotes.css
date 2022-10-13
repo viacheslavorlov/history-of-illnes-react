@@ -7,8 +7,11 @@
 }
 
 .daiary__item {
+    height: 33.3vh;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    break-before: auto;
 }
 
 .daiary__item__header {
@@ -44,3 +47,14 @@
 .daiary__item__span {
     height: 3em;
 }
+
+
+section {
+    break-before: page;
+    break-inside: avoid-page;
+}
+
+
+
+
+

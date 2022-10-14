@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 80vw;
     margin: 0 auto;
-    font-size: 17px;
+    font-size: 14px;
 }
 
 .daiary__item {
@@ -42,22 +42,22 @@
     text-align: end;
 }
 
-.daiary__item__span {
-    height: 10vh;
-    opacity: 0;
-}
+/*.daiary__item__span {*/
+/*    height: 4vh;*/
+/*    opacity: 0;*/
+/*}*/
 
 
 section {
     break-before: page;
-    break-inside: avoid-page;
+    break-inside: avoid;
 }
 
 @media print {
     .daiary__item {
-        height: 33.3vh;
-        display: flex;
-        flex-direction: column;
+        height: 33.33vh;
+        /*display: flex;*/
+        /*flex-direction: column;*/
     }
     .daiary__item__header {
         margin-bottom: 1em;

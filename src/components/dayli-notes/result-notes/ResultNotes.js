@@ -1,22 +1,19 @@
 import React from 'react';
 import {useSelector} from "react-redux";
+import {randomNumber, randomNumberWhithSteps} from "../../../utils/utils";
 
 import './ResultNotes.css';
+import {v4 as uuidv4} from "uuid";
 
 const ResultNotes = () => {
-	const stateFromStore = useSelector(state => state.daylyNotes);
-	console.log('strateFromStore', stateFromStore);
+	const {operationDay, dayIn, dayOut, diagnosis, operation, name} = useSelector(state => state.daylyNotes);
+
 	//* dayIn: "2022-10-11"
 	//* dayOut: "2022-10-19"
 	//* diagnosis: "ЭКХ"
 	//* name: "Capitan America"
 	//* operation: "Иссечение ЭКХ"
 	//* operationDay: "2022-10-12"
-
-
-	/*
-	 @param {end, start} : Date
-	 */
 
 	const formDayList = (end, start) => {
 		const firstDay = new Date(start);
@@ -30,8 +27,11 @@ const ResultNotes = () => {
 
 		const resultLastIndex = result.length - 1;
 
+		const operDay = new Date(operationDay).toLocaleDateString();
+
 
 		return result.map((item, i) => {
+			let today = item.toLocaleDateString();
 
 			let min = Math.floor(Math.random() * 10) * 5 ;
 			if (min < 10) min = '0' + min;
@@ -39,23 +39,23 @@ const ResultNotes = () => {
 			let doctor = 'лечащего врача';
 			let dayOfOperation = null;
 
-			if (i === result.length - 1 || i === 0) {
+			if (i === result.length - 1 || i === 0 || i === 3) {
 				doctor = 'заведующего отделением';
 			}
-			if (item.toLocaleDateString() === new Date(stateFromStore.operationDay).toLocaleDateString()) {
+
+			if (today === operDay) {
 				dayOfOperation = 'Осмотр перед операцией.';
 			}
-			console.log('item', item, new Date(stateFromStore.operationDay)) // ! оптимизировать - вытащить из объекта
+
 			let complains = () => {
 				switch (i) {
 					case 0:
 						return 'прежние' ;
 					case 1:
-						return (item.toLocaleString() > new Date(stateFromStore.operationDay).toLocaleString()) ? // ! оптимизировать - вытащить из
-							// объекта
+						return (today > operDay) ?
 							'боли в области послеоперационной(ых) ран(ы)': 'прежние' ;
 					case 2:
-						return (item.toLocaleString() > new Date(stateFromStore.operationDay).toLocaleString()) ?// ! оптимизировать - вытащить из объекта
+						return (today > operDay) ?
 							'боли в области послеоперационной(ых) ран(ы)': 'прежние' ;
 					case resultLastIndex:
 						return 'нет';
@@ -63,36 +63,36 @@ const ResultNotes = () => {
 						return 'слабые боли в области послеоперационной(ых) ран(ы)';
 				}
 			}
-			// ! можно оптимизировать
-			const pulse = Math.floor(Math.random() * (85 - 60) + 60);
-			const adH = Math.floor(Math.random() * 5) * 5 + 110;
-			const adL = Math.floor(Math.random() * 5) * 5 + 60;
-			const chDD = Math.floor(Math.random() * 5) + 12;
+
+			const pulse = randomNumber(85, 60);
+			const adH = randomNumberWhithSteps(5, 5, 105);
+			const adL = randomNumberWhithSteps(5, 5, 60);
+			const chDD = randomNumberWhithSteps(5, 1, 13)
 
 			const stul = () => {
 				switch (i) {
 					case 0:
-						return (item === new Date(stateFromStore.operationDay)) ? // ! оптимизировать - вытащить из объекта
+						return (today === operDay) ?
 							'Стула не было' : 'Стул';
 					case 1, 2:
-						return (item > new Date(stateFromStore.operationDay)) ? // ! оптимизировать - вытащить из объекта
+						return (today > operDay) ?
 							'Стула не было' : 'Стул';
 					default:
 						return 'Стул оформленный, дефекация умеренно болезенная';
 				}
 			}
 
-			const diagnosis = stateFromStore.diagnosis; // ! оптимизировать - вытащить из объекта
+
 			const bandage = () => {
 				switch (i) {
 					case 0:
 						return null ;
 					case 1:
-						return (item > new Date(stateFromStore.operationDay)) ?
+						return (today > operDay) ?
 							'Перевязка с мазью левосин, послеоперационная(ые) рана(ы) без признаков воспаления,' +
 							' \nзаживает(ют) вторичным натяжением': 'прежние' ;
 					case 2:
-						return (item > new Date(stateFromStore.operationDay)) ?
+						return (today > operDay) ?
 							'Перевязка с мазью левосин, послеоперационная(ые) рана(ы) без признаков воспаления,' +
 							' \nзаживает(ют) вторичным натяжением': 'прежние' ;
 					default:
@@ -101,14 +101,16 @@ const ResultNotes = () => {
 				}
 			}
 
-			const discharge = i === result.length - 1 ? 'К выписке. Даны рекомендации по режиму, питанию, уходу за' +
-				' ранами.' : null;
+			const discharge = i === resultLastIndex ?
+				`В течение госпитализации выполнена операция ${operation}. 
+				К выписке. Даны рекомендации по режиму, питанию, уходу за  раной(ми).`
+				: null;
 
-			console.log("день недели", item.getDay())
+
 			return (
-				<section className={"daiary__item breake__page"}>
+				<section key={uuidv4()} className={"daiary__item breake__page"}>
 					<div className={"daiary__item__header"}>Осмотр {doctor}.</div>
-					<div className={"daiary__item__date"}>Дата: {item.toLocaleDateString()} Время: 8:{min}</div>
+					<div className={"daiary__item__date"}>Дата: {today} Время: 8:{min}</div>
 					<div className={"daiary__item__date"}>{dayOfOperation}</div>
 					<div className={"daiary__item__info"}>Жалобы: {complains()}.</div>
 					<div className={"daiary__item__info"}>Состояние удовлетворительное.</div>
@@ -127,7 +129,7 @@ const ResultNotes = () => {
 					<div className="daiary__item__doctor">
 						{doctor === 'заведующего отделением' ? 'Заведующий отделением: Богов В.М.' : null}
 						</div>
-					<div className={"daiary__item__span"}>_</div>
+					<div className={"daiary__item__span"}></div>
 				</section>
 			)
 		});
@@ -135,9 +137,7 @@ const ResultNotes = () => {
 
 	return (
 		<div className="daiary">
-			{formDayList(stateFromStore.dayOut, stateFromStore.dayIn)} {
-				// ! оптимизировать - вытащить из объекта
-			}
+			{formDayList(dayOut, dayIn)}
 		</div>
 	);
 };

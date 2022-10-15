@@ -1,6 +1,7 @@
 //* начальное состояние
 const initialState = {
-	daylyNotes: {}
+	daylyNotes: {},
+	prijemnijStatus: {}
 };
 
 //* reducer
@@ -9,7 +10,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 	console.log(state)
 	switch (action.type) {
-		case  'DAYLYNOTES':
+		case 'DAYLYNOTES':
 			return {...state, daylyNotes: action.payload};
 		case 'PRIJEMNIJ_STATUS':
 			return {...state, prijemnijStatus: action.payload}

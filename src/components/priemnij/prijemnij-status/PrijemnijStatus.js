@@ -11,7 +11,7 @@ const PrijemnijStatus = () => {
 	return (
 		<div>
 			<h1>Приемный статус</h1>
-			<div>Дата: {date.toLocaleDateString()} Время {/**/}</div>
+			<div>Дата: {date.toLocaleDateString()}</div>
 			<div>Жалобы: {/**/}</div>
 			<div>Анамнез заболевания: {/**/}</div>
 			<div>Анамнез жизни: {/**/}</div>

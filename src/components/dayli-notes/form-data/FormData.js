@@ -18,30 +18,30 @@ const FormData = () => {
 				operation: '',
 				operationDay: '',
 				diagnosis: '',
-				multipleWounds: false
+				multipleWounds: ''
 			}} onSubmit={(values) => {
 				dispatch(daylyNotes(values));
-				console.log((JSON.stringify(values, null, 2)));
+				console.log(JSON.stringify(values, null, 2));
 			}}
-			        validationSchema={Yup.object().shape({
-				        name: Yup.string()
-					        .min(6, 'Слишком короткое имя!')
-					        .required('Введите имя!'),
-				        dayIn: Yup.date()
-					        .required('Введите дату поступления'),
-				        dayOut: Yup.date()
-					        .required('Введите дату выписки'),
-				        operation: Yup.string()
-					        .min(5, 'Введите название операции')
-					        .required('Введите название операции'),
-				        operationDay: Yup.date()
-					        .required('Введите дату поступления'),
-				        diagnosis: Yup.string()
-					        .min(3)
-					        .required('Введите диагноз'),
-				        multipleWounds: Yup.string()
-					        .required('Укажите одна или много ран')
-			        })}>
+		        validationSchema={Yup.object().shape({
+			        name: Yup.string()
+				        .min(6, 'Слишком короткое имя!')
+				        .required('Введите имя!'),
+			        dayIn: Yup.date()
+				        .required('Введите дату поступления'),
+			        dayOut: Yup.date()
+				        .required('Введите дату выписки'),
+			        operation: Yup.string()
+				        .min(5, 'Введите название операции')
+				        .required('Введите название операции'),
+			        operationDay: Yup.date()
+				        .required('Введите дату поступления'),
+			        diagnosis: Yup.string()
+				        .min(3)
+				        .required('Введите диагноз'),
+			        multipleWounds: Yup.string()
+				        .required('Укажите одна или много ран')
+		        })}>
 				<Form>
 					<label htmlFor="name">ФИО пациента: </label>
 					<Field
@@ -92,25 +92,25 @@ const FormData = () => {
 					<ErrorMessage className="error" name="diagnosis" component="div"/>
 					<br/>
 					<div></div>
-					<div id="radio-group"> Множественные раны: </div>
-						<div role="group" aria-labelledby="radio-group-">
-							<label htmlFor="multipleWoundsTrue">ДА
-								<Field
-									id="multipleWoundsTrue"
-									name="multipleWounds"
-									type="radio"
-									value="да"
-								/>
-							</label>
-							<label htmlFor="multipleWoundsFalse">НЕТ
-								<Field
-									id="multipleWoundsFalse"
-									name="multipleWounds"
-									type="radio"
-									value="нет"
-								/>
-							</label>
-						</div>
+					<div id="radio-group"> Множественные раны:</div>
+					<div role="group" aria-labelledby="radio-group-">
+						<label htmlFor="multipleWoundsTrue">ДА
+							<Field
+								id="multipleWoundsTrue"
+								name="multipleWounds"
+								type="radio"
+								value="да"
+							/>
+						</label>
+						<label htmlFor="multipleWoundsFalse">НЕТ
+							<Field
+								id="multipleWoundsFalse"
+								name="multipleWounds"
+								type="radio"
+								value="нет"
+							/>
+						</label>
+					</div>
 					<ErrorMessage name="multipleWounds" className="error" component="div"/>
 
 

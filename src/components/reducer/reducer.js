@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
 		case 'DAYLYNOTES':
 			return {...state, daylyNotes: action.payload};
 		case 'PRIJEMNIJ_STATUS':
-			return {...state, prijemnijStatus: action.payload}
+			return {...state, prijemnijStatus: action.payload};
 		default:
 			return state;
 	}

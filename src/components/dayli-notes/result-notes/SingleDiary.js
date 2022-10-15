@@ -4,7 +4,7 @@ import {randomNumber, randomNumberWhithSteps} from "../../../utils/utils";
 
 import "./ResultNotes.css";
 
-const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWounds, diagnosis})=> {
+const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWounds, diagnosis}) => {
 	let today = item.toLocaleDateString();
 
 	let min = Math.floor(Math.random() * 10) * 5;
@@ -17,6 +17,10 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 		doctor = 'совместно с заведующим отделением';
 	}
 
+	if (item.getDay() === 6) {
+		doctor = 'дежурного врача'
+	}
+
 	if (today === operDay) {
 		dayOfOperation = 'Осмотр перед операцией.';
 	}
@@ -27,17 +31,17 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 				return 'прежние';
 			case 1:
 				return (today > operDay) ?
-					`боли в области послеоперационн${multipleWounds ? 'ых' : 'ой'} ран${multipleWounds ? '' : 'ы'}` : 'прежние';
+					`боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}` : 'прежние';
 			case 2:
 				return (today > operDay) ?
-					`боли в области послеоперационн${multipleWounds ? 'ых' : 'ой'} ран${multipleWounds ? '' : 'ы'}` : 'прежние';
+					`боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}` : 'прежние';
 			case 3:
 				return (today > operDay) ?
-					`боли в области послеоперационн${multipleWounds ? 'ых' : 'ой'} ран${multipleWounds ? '' : 'ы'}` : 'прежние';
+					`боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}` : 'прежние';
 			case resultLastIndex:
 				return 'нет';
 			default:
-				return `слабые боли в области послеоперационн${multipleWounds ? 'ых' : 'ой'} ран${multipleWounds ? '' : 'ы'}`;
+				return `слабые боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}`;
 		}
 	}
 
@@ -61,16 +65,15 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 				return 'Стул оформленный, дефекация умеренно болезенная';
 		}
 	}
-	console.log('today', today, 'operDay', operDay)
 	const bandage = () => {
 		return (today > operDay) ?
-			`Перевязка с мазью левосин, послеоперационн${multipleWounds ? 'ые' : 'ая'} ран${multipleWounds ? 'ы' : 'а'} без признаков воспаления, 
-							зажива${multipleWounds ? 'ют' : 'ет'} вторичным натяжением` : '';
+			`Перевязка с мазью левосин, послеоперационн${multipleWounds === 'да' ? 'ые' : 'ая'} ран${multipleWounds === 'да' ? 'ы' : 'а'} без признаков воспаления, 
+							зажива${multipleWounds === 'да' ? 'ют' : 'ет'} вторичным натяжением` : '';
 	}
 
 	const discharge = i === resultLastIndex ?
 		`В течение госпитализации выполнена операция ${operation}. 
-				К выписке. Даны рекомендации по режиму, питанию, уходу за  ран${multipleWounds ? 'ами' : 'ой'}.`
+				К выписке. Даны рекомендации по режиму, питанию, уходу за  ран${multipleWounds === 'да' ? 'ами' : 'ой'}.`
 		: null;
 	return (
 		<section key={uuidv4()} className={"daiary__item breake__page"}>

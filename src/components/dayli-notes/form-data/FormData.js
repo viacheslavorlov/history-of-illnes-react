@@ -1,7 +1,7 @@
 import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from 'yup';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {daylyNotes} from "../../actions/actions";
 
 import './FormData.css';
@@ -18,7 +18,7 @@ const FormData = () => {
 				operation: '',
 				operationDay: '',
 				diagnosis: '',
-				multipleWounds: ''
+				multipleWounds: false
 			}} onSubmit={(values) => {
 				dispatch(daylyNotes(values));
 				console.log((JSON.stringify(values, null, 2)));
@@ -39,7 +39,7 @@ const FormData = () => {
 				        diagnosis: Yup.string()
 					        .min(3)
 					        .required('Введите диагноз'),
-				        multipleWounds: Yup.bool()
+				        multipleWounds: Yup.string()
 					        .required('Укажите одна или много ран')
 			        })}>
 				<Form>
@@ -93,13 +93,13 @@ const FormData = () => {
 					<br/>
 					<div></div>
 					<div id="radio-group"> Множественные раны: </div>
-						<div role="group" aria-labelledby="radio-group">
+						<div role="group" aria-labelledby="radio-group-">
 							<label htmlFor="multipleWoundsTrue">ДА
 								<Field
 									id="multipleWoundsTrue"
 									name="multipleWounds"
 									type="radio"
-									value={"true"}
+									value="да"
 								/>
 							</label>
 							<label htmlFor="multipleWoundsFalse">НЕТ
@@ -107,7 +107,7 @@ const FormData = () => {
 									id="multipleWoundsFalse"
 									name="multipleWounds"
 									type="radio"
-									value={"false"}
+									value="нет"
 								/>
 							</label>
 						</div>

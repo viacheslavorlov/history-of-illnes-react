@@ -15,3 +15,8 @@
     color: red;
 }
 
+@media print {
+    .header, .form {
+        display: none;
+    }
+}

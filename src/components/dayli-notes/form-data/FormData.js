@@ -42,55 +42,46 @@ const FormData = () => {
 			        multipleWounds: Yup.string()
 				        .required('Укажите одна или много ран')
 		        })}>
-				<Form>
+				<Form className="form bg-light container border border-dark align-content-center">
 					<label htmlFor="name">ФИО пациента: </label>
 					<Field
 						id="name"
 						type="text"
 						name="name"/>
-					<br/>
+
 					<ErrorMessage className="error" name="name" component="div"/>
-					<br/>
+
 					<label htmlFor="date">Дата поступления: </label>
 
 					<Field
 						id="date"
 						type="date"
 						name="dayIn"/>
-					<br/>
 					<ErrorMessage className="error" name="dayIn" component="div"/>
-					<br/>
 					<label htmlFor="dayOut">Дата выписки: </label>
 					<Field
 						id="dayOut"
 						type="date"
 						name="dayOut"/>
-					<br/>
 					<ErrorMessage className="error" name="dayOut" component="div"/>
-					<br/>
 					<label htmlFor="operation">Название операции: </label>
 					<Field
 						id="operation"
 						type="text"
 						name="operation"/>
-					<br/>
 					<ErrorMessage className="error" name="operation" component="div"/>
-					<br/>
 					<label htmlFor="operationDay">День операции: </label>
 					<Field
 						id="operationDay"
 						type="date"
 						name="operationDay"/>
-					<br/>
 					<ErrorMessage className="error" name="operationDay" component="div"/>
-					<br/>
 					<label htmlFor="diagnosis">Диагноз: </label>
 					<Field
 						id="diagnosis"
 						type="text"
 						name="diagnosis"/>
 					<ErrorMessage className="error" name="diagnosis" component="div"/>
-					<br/>
 					<div></div>
 					<div id="radio-group"> Множественные раны:</div>
 					<div role="group" aria-labelledby="radio-group-">
@@ -112,11 +103,7 @@ const FormData = () => {
 						</label>
 					</div>
 					<ErrorMessage name="multipleWounds" className="error" component="div"/>
-
-
-					<br/>
-					<br/>
-					<button type="submit">Принять</button>
+					<button className="btn btn-lg btn-dark m-3" type="submit">Принять</button>
 				</Form>
 			</Formik>
 		</div>

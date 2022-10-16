@@ -16,7 +16,7 @@ const PrijemnijStatus = () => {
 
 	return name ? (
 		<div>
-			<h1>Приемный статус</h1>
+			<h1 className="">Приемный статус</h1>
 			<div>Дата: {date.toLocaleDateString()}</div>
 			<div>Жалобы: {complains}.</div>
 			<div>Анамнез заболевания: {/**/}.</div>

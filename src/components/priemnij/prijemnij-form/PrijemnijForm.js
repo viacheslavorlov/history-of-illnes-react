@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import {prijemnijStatus} from "../../actions/actions";
 import * as Yup from 'yup';
@@ -7,8 +7,16 @@ import {complains, statusLocalis} from "../../../utils/utils";
 
 import "./PrijemnijForm.css";
 
+
 const PrijemnijForm = () => {
 	const dispatch = useDispatch();
+	const [ln, setLn] = useState(null);
+	const [diagnosis, setDiagnosis] = useState('');
+
+	const handleChange = (e) => {
+		setDiagnosis(e.target.value);
+		console.log('handleChange')
+	}
 
 	return (
 		<>
@@ -17,14 +25,17 @@ const PrijemnijForm = () => {
 				initialValues={{
 					name: '',
 					dateTime: '',
-					desieses: [''],
+					desieses: null,
 					ln: '',
 					lnDate: '',
+					lnFirst: '',
 					lnNumber: 0,
 					allergis: '',
 					stul: 'стул регулярный, оформленный. Диурез в норме',
 					anamnesis: '',
 					diagnosis: '',
+					svischOut: '',
+					svischIn: '',
 					zavOtdeleniem: 'Богов В.М.'
 				}}
 
@@ -33,9 +44,8 @@ const PrijemnijForm = () => {
 					dispatch(prijemnijStatus({
 						...values,
 						complains: complains(values.diagnosis),
-						statusLocalis: statusLocalis(values.diagnosis)
+						statusLocalis: statusLocalis(values.diagnosis, values.svischOut, values.svischIn)
 					}));
-					console.log((JSON.stringify({...values, complains: complains(values.diagnosis)}, null, 2)));
 				}}
 				validationSchema={
 					Yup.object().shape({
@@ -44,8 +54,11 @@ const PrijemnijForm = () => {
 						desieses: Yup.array(Yup.string()),
 						ln: Yup.string().required('какой больничный лист ПЕРВИЧНЫЙ/ПРОДОЛЖЕНИЕ'),
 						lnDate: Yup.date(),
+						lnFirst: Yup.date(),
 						lnNumber: Yup.number(),
 						stul: Yup.string().required(),
+						svischOut: Yup.number(),
+						svischIn: Yup.number(),
 						anamnesis: Yup.string().required('напишите анамнез'),
 						allergis: Yup.string().required('аллергии'),
 						diagnosis: Yup.string().required('Введите диагноз'),
@@ -70,12 +83,12 @@ const PrijemnijForm = () => {
 					/>
 					<ErrorMessage name="dateTime" className="error" component="div"/>
 					<br/>
-
 					<label htmlFor="diagnosis">Диагноз: </label>
 					<Field
 						as="select"
 						name="diagnosis"
 						id="diagnosis"
+						onInput={(e) => handleChange(e)}
 					>
 						<option value=""></option>
 						<option value="ЭКХ">ЭКХ</option>
@@ -105,6 +118,24 @@ const PrijemnijForm = () => {
 					</Field>
 					<ErrorMessage name="diagnosis" className="error" component="div"/>
 					<br/>
+					{diagnosis.match('свищ') ?
+						<>
+							<label htmlFor="svischOut">наружное ответсие свища на: </label>
+							<Field
+								type="number"
+								name="svischOut"
+								id="svischOut"
+							/>
+							<ErrorMessage name="svischOut" className="error" component="div"/>
+							<label htmlFor="svischIn">Внутреннее ответсие свища на: </label>
+							<Field
+								type="number"
+								name="svischIn"
+								id="svischIn"
+							/>
+							<ErrorMessage name="svischIn" className="error" component="div"/>
+						</> : null
+					}
 					<label htmlFor="anamnesis">Анамнез заболевания: </label>
 					<Field
 						as="textarea"
@@ -166,26 +197,46 @@ const PrijemnijForm = () => {
 					<Field
 						id="ln"
 						as="select"
+						onInput={(e) => setLn(e.target.value)}
 						name="ln">
+						<option value=""></option>
 						<option value="первичный">первичный</option>
 						<option value="продолжение с">продолжение с</option>
 						<option value="не требуется">не требуется</option>
 					</Field>
 					<ErrorMessage name="ln" className="error" component="div"/>
 					<br/>
-					<label htmlFor="lnDate">Больныичный лист / продолжение c: </label>
-					<Field
-						id="lnDate"
-						type="date"
-						name="lnDate"/>
-					<ErrorMessage name="lnDate" className="error" component="div"/>
-					<br/>
-					<label htmlFor="lnNumber">Номер больничного листа: </label>
-					<Field
-						type="number"
-						name="lnNumber"
-						id="lnNumber"/>
-					<ErrorMessage name="lnNumber" className="error" component="div"/>
+					{
+						ln !== 'не требуется' ?
+							<>
+								<label htmlFor="lnDate">Больныичный лист / продолжение c: </label>
+								<Field
+									id="lnDate"
+									type="date"
+									name="lnDate"/>
+								<ErrorMessage name="lnDate" className="error" component="div"/>
+							</> : null
+					}
+
+					{
+						ln === 'продолжение с' ?
+							<>
+								<label htmlFor="lnFirst">Первичный больныичный лист c: </label>
+								<Field
+									id="lnFirst"
+									type="date"
+									name="lnFirst"/>
+								<ErrorMessage name="lnFirst" className="error" component="div"/>
+								<br/>
+								<label htmlFor="lnNumber">Номер больничного листа: </label>
+								<Field
+									type="number"
+									name="lnNumber"
+									id="lnNumber"/>
+								<ErrorMessage name="lnNumber" className="error" component="div"/>
+							</> : null
+					}
+
 					<br/>
 					<label htmlFor="allergis">Аллергии: </label>
 					<Field

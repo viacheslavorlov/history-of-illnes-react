@@ -36,6 +36,8 @@ const PrijemnijForm = () => {
 					diagnosis: '',
 					svischOut: '',
 					svischIn: '',
+					razmerPolipaX: '',
+					razmerPolipaY: '',
 					zavOtdeleniem: 'Богов В.М.'
 				}}
 
@@ -59,6 +61,8 @@ const PrijemnijForm = () => {
 						stul: Yup.string().required(),
 						svischOut: Yup.number(),
 						svischIn: Yup.number(),
+						razmerPolipaX: Yup.number(),
+						razmerPolipaY: Yup.number(),
 						anamnesis: Yup.string().required('напишите анамнез'),
 						allergis: Yup.string().required('аллергии'),
 						diagnosis: Yup.string().required('Введите диагноз'),
@@ -135,6 +139,25 @@ const PrijemnijForm = () => {
 							/>
 							<ErrorMessage name="svischIn" className="error" component="div"/>
 						</> : null
+					}
+					{diagnosis.match('Полип') ?
+						<div>
+							<br/>
+							<label htmlFor="razmerPolipaX">Полип на высоте (см): </label>
+							<Field
+								type="number"
+								name="razmerPolipaX"
+								id="razmerPolipaX"
+							/>
+							<ErrorMessage name="razmerPolipaX" className="error" component="div"/>
+							<label htmlFor="razmerPolipaН">Полип диаметром (см): </label>
+							<Field
+								type="number"
+								name="razmerPolipaY"
+								id="razmerPolipaY"
+							/>
+							<ErrorMessage name="razmerPolipaY" className="error" component="div"/>
+						</div> : null
 					}
 					<label htmlFor="anamnesis">Анамнез заболевания: </label>
 					<Field

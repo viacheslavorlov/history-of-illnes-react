@@ -33,7 +33,7 @@ export const complains = (diagnos) => {
 	}
 }
 
-export const statusLocalis = (diagnos, svischOut = null, svischIn = null) => {
+export const statusLocalis = (diagnos, svischOut = null, svischIn = null, polipX = null, polipY = null) => {
 	switch (diagnos) {
 		case 'ЭКХ':
 			return 'в области межьягодичной складки первичные и вторичные отверстия ЭКХ с серозно-гнойным' +
@@ -74,7 +74,7 @@ export const statusLocalis = (diagnos, svischOut = null, svischIn = null) => {
 		case 'Полип анального канала':
 			return `Перианальная область не изменена, сфинктер в нормотонусе. 
 				На 3, 7, 11 часов не выраженные геморроидальные узлы с наружным и внутренним компонентом до 0,${randomNumber(3, 7)}см
-				На высоте _____ часах полип размером  ____ см`;
+				На высоте ${polipX} часах полип размером  ${polipY} см`;
 		default:
 			return '';
 	}

@@ -1,0 +1,25 @@
+.operation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    break-inside: avoid;
+}
+
+.operation div {
+    line-height: 1em;
+    font-size: 15px;
+}
+
+.operation__opisanie {
+    text-align: justify;
+}
+.operation__secondCopy {
+    margin-top: 3em;
+}
+
+.operation__diagnosis b {
+    font-size: 1.2em;
+    font-style: italic;
+    text-align: justify;
+}
+

@@ -17,9 +17,7 @@ const DaylyNotes = () => {
 				<Header date={date}/>
 				<FormData/>
 			</div>
-			<PrijemnijForm/>
 			<ResultNotes/>
-			<PrijemnijStatus/>
 		</>
 	)
 }

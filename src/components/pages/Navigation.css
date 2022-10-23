@@ -1,0 +1,28 @@
+.navbar {
+    width: 90%;
+    margin: 0 auto;
+}
+.noprint {
+    border: solid black 2px;
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 1.4em;
+    background-color: green;
+    color: white;
+}
+
+.active{
+    color: black;
+    background-color: red;
+}
+
+@media print {
+    .navbar {
+        display: none;
+    }
+
+    .noprint {
+        display: none;
+    }
+}

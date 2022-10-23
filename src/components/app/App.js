@@ -4,8 +4,8 @@ import {Provider} from "react-redux";
 import {store} from "../redux-store/store";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Prijemnij from "../priemnij/Prijemnij";
-import Navigation from "../pages/MainPage";
-import Operation from "../operations/Operation";
+import Navigation from "../pages/Navigation";
+import OperationForm from "../operations/OperationForm";
 
 function App() {
 	return (
@@ -14,9 +14,11 @@ function App() {
 			<div className="App">
 				<Navigation/>
 				<Routes>
-					<Route path="/дневники" element={<DaylyNotes/>}/>
-					<Route path="/приёмный-статус" element={<Prijemnij/>}/>
-					<Route path="/операции" element={<Operation/>}/>
+					<Route path="/" element={<Navigation/>}/>
+					<Route path="/dayly-notes" element={<DaylyNotes/>}/>
+					<Route path="/prijemnij-status" element={<Prijemnij/>}/>
+					<Route path="/operation" element={<OperationForm/>}/>
+					<Route path="/discharge" element={<h1>Пока элемент не написан</h1>}/>
 				</Routes>
 			</div>
 			</Router>

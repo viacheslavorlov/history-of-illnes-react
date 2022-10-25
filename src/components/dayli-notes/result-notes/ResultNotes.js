@@ -9,13 +9,6 @@ import './ResultNotes.css';
 const ResultNotes = () => {
 	const {operationDay, dayIn, dayOut, diagnosis, operation, multipleWounds} = useSelector(state => state.daylyNotes);
 
-	//* dayIn: "2022-10-11"
-	//* dayOut: "2022-10-19"
-	//* diagnosis: "ЭКХ"
-	//* name: "Capitan America"
-	//* operation: "Иссечение ЭКХ"
-	//* operationDay: "2022-10-12"
-
 	const formDayList = (end, start) => {
 		const firstDay = new Date(start);
 		const lastDay = new Date(end)

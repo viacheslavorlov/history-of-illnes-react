@@ -42,7 +42,7 @@ const FormData = () => {
 			        multipleWounds: Yup.string()
 				        .required('Укажите одна или много ран')
 		        })}>
-				<Form className="form bg-light container border border-dark align-content-center">
+				<Form className="form bg-black bg-opacity-10 border-1 border-dark border">
 					<label htmlFor="name">ФИО пациента: </label>
 					<Field
 						id="name"

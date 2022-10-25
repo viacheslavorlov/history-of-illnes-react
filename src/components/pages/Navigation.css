@@ -3,18 +3,31 @@
     margin: 0 auto;
 }
 .noprint {
+    line-height: 1.1em;
     border: solid black 2px;
     border-radius: 10px;
     padding: 5px;
     text-decoration: none;
+    font-family: serif;
     font-size: 1.4em;
-    background-color: green;
+    background-color: rgba(5, 4, 4, 0.47);
     color: white;
 }
 
-.active{
+.noprint:hover {
     color: black;
-    background-color: red;
+    background-color: rgba(0, 0, 0, 0.11);
+}
+
+.active{
+    color: #ffffff;
+    background-color: rgb(0, 0, 0);
+}
+
+.active:hover {
+    color: #ffffff;
+    background-color: rgb(0, 0, 0);
+
 }
 
 @media print {

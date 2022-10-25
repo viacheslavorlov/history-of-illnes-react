@@ -29,7 +29,10 @@ const PrijemnijForm = () => {
 					ln: '',
 					lnDate: '',
 					lnFirst: '',
-					lnNumber: 0,
+					lnNumber: '',
+					lastVK: '',
+					lnNarukachStart: '',
+					lnNarukachEnd: '',
 					allergis: '',
 					stul: 'стул регулярный, оформленный. Диурез в норме',
 					anamnesis: '',
@@ -57,7 +60,10 @@ const PrijemnijForm = () => {
 						ln: Yup.string().required('какой больничный лист ПЕРВИЧНЫЙ/ПРОДОЛЖЕНИЕ'),
 						lnDate: Yup.date(),
 						lnFirst: Yup.date(),
+						lastVK: Yup.date(),
 						lnNumber: Yup.number(),
+						lnNarukachStart: Yup.date(),
+						lnNarukachEnd: Yup.date(),
 						stul: Yup.string().required(),
 						svischOut: Yup.number(),
 						svischIn: Yup.number(),
@@ -69,7 +75,7 @@ const PrijemnijForm = () => {
 						zavOtdeleniem: Yup.string().required('зав. отделением')
 					})
 				}>
-				<Form className="form bg-light container border border-dark">
+				<Form className="form bg-black bg-opacity-10 border-1 border-dark border">
 					<label htmlFor="name">ФИО пациента: </label>
 					<Field
 						name="name"
@@ -230,9 +236,9 @@ const PrijemnijForm = () => {
 					<ErrorMessage name="ln" className="error" component="div"/>
 					<br/>
 					{
-						ln !== 'не требуется' ?
+						ln === 'первичный' ?
 							<>
-								<label htmlFor="lnDate">Больныичный лист / продолжение c: </label>
+								<label htmlFor="lnDate">Больныичный лист первичный c: </label>
 								<Field
 									id="lnDate"
 									type="date"
@@ -257,6 +263,34 @@ const PrijemnijForm = () => {
 									name="lnNumber"
 									id="lnNumber"/>
 								<ErrorMessage name="lnNumber" className="error" component="div"/>
+								<label htmlFor="lastVK">Дата последнего ВК: </label>
+								<Field
+									type="date"
+									name="lastVK"
+									id="lastVK"
+								/>
+								<ErrorMessage name="lastVK" className="error" component="div"/>
+
+								<label htmlFor="lnNarukachStart">На руках больничный лист с: </label>
+								<Field
+									type="date"
+									name="lnNarukachStart"
+									id="lnNarukachStart"/>
+								<ErrorMessage name="lnNarukachStart" className="error" component="div"/>
+
+								<label htmlFor="lnNarukachEnd">На руках больничный лист по: </label>
+								<Field
+									type="date"
+									name="lnNarukachEnd"
+									id="lnNarukachEnd"/>
+								<ErrorMessage name="lnNarukachEnd" className="error" component="div"/>
+
+								<label htmlFor="lnDate">Продолжение ЛН c: </label>
+								<Field
+									id="lnDate"
+									type="date"
+									name="lnDate"/>
+								<ErrorMessage name="lnDate" className="error" component="div"/>
 							</> : null
 					}
 

@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Prijemnij from "../priemnij/Prijemnij";
 import Navigation from "../pages/Navigation";
 import OperationForm from "../operations/OperationForm";
+import MainPage from "../pages/main-page/MainPage";
 
 function App() {
 	return (
@@ -14,7 +15,7 @@ function App() {
 			<div className="App">
 				<Navigation/>
 				<Routes>
-					<Route path="/" element={<Navigation/>}/>
+					<Route path="/" element={<MainPage/>}/>
 					<Route path="/dayly-notes" element={<DaylyNotes/>}/>
 					<Route path="/prijemnij-status" element={<Prijemnij/>}/>
 					<Route path="/operation" element={<OperationForm/>}/>

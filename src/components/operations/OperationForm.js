@@ -5,15 +5,16 @@ import * as Yup from 'yup';
 import {useDispatch, useSelector} from "react-redux";
 import OperationResult from "./OperationResult";
 import {opisanieOperacii} from "../../utils/utils";
+import * as data from "../../data/data.json";
 
 
 const OperationForm = () => {
 	const dispatch = useDispatch();
-	const [diagnosis, setDiagnosis] = useState('');
+	const [diagnos, setDiagnos] = useState('');
 
-	const state = useSelector(state => state)
+	const {name, birthDay, diagnosis} = useSelector(state => state.mainData)
 	const handleChange = (e) => {
-		setDiagnosis(e.target.value);
+		setDiagnos(e.target.value);
 		console.log('handleChange')
 	}
 
@@ -22,14 +23,14 @@ const OperationForm = () => {
 			<h1 className="form">Заполните данные для операции</h1>
 			<Formik
 				initialValues={{
-					name: '',
-					operation: '',
-					birthDate: '',
+					name: name,
+					operation: data.default.operation[diagnosis],
+					birthDate: birthDay,
 					operationDay: '',
 					operationTimeStart: '',
 					operationTimeEnd: '',
-					diagnosis: '',
-					surgeon: '',
+					diagnosis: diagnosis,
+					surgeon: 'Орлов В.И.',
 					assistent: '',
 					anestesiologist: '',
 					sister: '',
@@ -55,16 +56,15 @@ const OperationForm = () => {
 						narkoz: Yup.string().required(),
 						svischOut: Yup.number(),
 						svischIn: Yup.number(),
-						razmerPolipaX: Yup.number(),
 						razmerPolipaY: Yup.number(),
+						razmerPolipaX: Yup.number(),
 					})
 				}
 				onSubmit={values => {
 					dispatch(operation({
 						...values,
-						opisanieOperacii: opisanieOperacii(values.diagnosis, values.svischOut, values.svischIn)
+						opisanieOperacii: opisanieOperacii(values.diagnosis, values.svischOut, values.svischIn, values.razmerPolipaY, values.razmerPolipaX)
 					}));
-					console.log(values, '\n', state)
 				}}>
 				<Form className="form bg-black bg-opacity-10 border-1 border-dark border">
 					<label htmlFor="name">ФИО пациента: </label>
@@ -126,11 +126,22 @@ const OperationForm = () => {
 					<ErrorMessage name="diagnosis" className="error" component="div"/>
 					<br/>
 					<label htmlFor="surgeon">Хирург:</label>
-					<Field id="surgeon" name="surgeon" type="text"/>
+					<Field id="surgeon" name="surgeon" as="select">
+						<option value="Орлов В.И.">Орлов В.И.</option>
+						<option value="Богов В.М.">Богов В.М.</option>
+						<option value="Проскурин А.А.">Проскурин А.А.</option>
+						<option value="Малышев А.Ю.">Малышев А.Ю.</option>
+					</Field>
 					<ErrorMessage name="surgeon" className="error" component="div"/>
 					<br/>
 					<label htmlFor="assistent">Ассистент:</label>
-					<Field id="assistent" name="assistent" type="text"/>
+					<Field id="assistent" name="assistent" as="select">
+						<option value=""></option>
+						<option value="Орлов В.И.">Орлов В.И.</option>
+						<option value="Богов В.М.">Богов В.М.</option>
+						<option value="Проскурин А.А.">Проскурин А.А.</option>
+						<option value="Малышев А.Ю.">Малышев А.Ю.</option>
+					</Field>
 					<ErrorMessage name="assistent" className="error" component="div"/>
 					<br/>
 					<label htmlFor="sister">Операционная сестра:</label>
@@ -155,7 +166,7 @@ const OperationForm = () => {
 						</option>
 					</Field>
 					<ErrorMessage name="narkoz" className="error" component="div"/>
-					{diagnosis.match(/свищ/ig) ?
+					{diagnos.match(/свищ/ig) ?
 						<>
 							<label htmlFor="svischOut">Наружное отверстие свища: </label>
 							<Field name="svischOut" id="svischOut" type="number"/>
@@ -166,7 +177,7 @@ const OperationForm = () => {
 						</> : null
 					}
 					{
-						diagnosis.match(/полип/ig) ?
+						diagnos.match(/полип/ig) ?
 							<>
 								<label htmlFor="razmerPolipaX">Полип размером: </label>
 								<Field name={"razmerPolipaX"} id={"razmerPolipaX"} type={"number"}/>

@@ -9,7 +9,7 @@ const Navigation = () => {
 			<NavLink className={({isActive}) => isActive ? active : "noprint"}
 			         to="/"
 			         end>
-				Меню
+				Главная
 			</NavLink>
 			<NavLink
 				end

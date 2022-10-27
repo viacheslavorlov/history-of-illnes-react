@@ -1,5 +1,6 @@
 //* начальное состояние
 const initialState = {
+	mainData: {},
 	daylyNotes: {},
 	prijemnijStatus: {},
 	operation: {}
@@ -16,7 +17,9 @@ const reducer = (state = initialState, action) => {
 		case 'PRIJEMNIJ_STATUS':
 			return {...state, prijemnijStatus: action.payload};
 		case 'OPERATION':
-			return {...state, operation: action.payload}
+			return {...state, operation: action.payload};
+		case 'MAIN_DATA':
+			return {...state, mainData: action.payload};
 		default:
 			return state;
 	}

@@ -62,7 +62,7 @@ const OperationForm = () => {
 				onSubmit={values => {
 					dispatch(operation({
 						...values,
-						opisanieOperacii: opisanieOperacii(values.diagnosis)
+						opisanieOperacii: opisanieOperacii(values.diagnosis, values.svischOut, values.svischIn)
 					}));
 					console.log(values, '\n', state)
 				}}>

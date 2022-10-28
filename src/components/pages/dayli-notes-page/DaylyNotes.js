@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from "../header/Header";
-import FormData from "../form-data/FormData";
-import ResultNotes from "../result-notes/ResultNotes";
+import Header from "../../dayli-notes/header/Header";
+import FormData from "../../dayli-notes/form-data/FormData";
+import ResultNotes from "../../dayli-notes/result-notes/ResultNotes";
 
 
 import "./DaylyNotes.css";

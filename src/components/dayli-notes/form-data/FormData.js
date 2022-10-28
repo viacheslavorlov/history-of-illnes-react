@@ -1,23 +1,24 @@
 import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from 'yup';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {daylyNotes} from "../../actions/actions";
 
 import './FormData.css';
 
 const FormData = () => {
 	const dispatch = useDispatch();
+	const {name, diagnosis} = useSelector(state => state.mainData)
 	return (
 		<div>
 			<h2>Заполните данные пациента.</h2>
 			<Formik initialValues={{
-				name: '',
+				name: name || '',
 				dayIn: '',
 				dayOut: '',
 				operation: '',
 				operationDay: '',
-				diagnosis: '',
+				diagnosis: diagnosis || '',
 				multipleWounds: ''
 			}} onSubmit={(values) => {
 				dispatch(daylyNotes(values));

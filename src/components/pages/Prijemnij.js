@@ -1,6 +1,6 @@
 import React from 'react';
-import PrijemnijForm from "./prijemnij-form/PrijemnijForm";
-import PrijemnijStatus from "./prijemnij-status/PrijemnijStatus";
+import PrijemnijForm from "../priemnij/prijemnij-form/PrijemnijForm";
+import PrijemnijStatus from "../priemnij/prijemnij-status/PrijemnijStatus";
 
 const Prijemnij = () => {
 	return (

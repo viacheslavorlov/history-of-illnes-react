@@ -1,6 +1,7 @@
 import React from 'react';
 import {v4 as uuidv4} from "uuid";
 import {randomNumber, randomNumberWhithSteps} from "../../../utils/utils";
+import data from "../../../data/data.json";
 
 import "./ResultNotes.css";
 
@@ -17,7 +18,7 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 		doctor = 'совместно с заведующим отделением';
 	}
 
-	if (item.getDay() === 6) {
+	if (item.getDay() === 0) {
 		doctor = 'дежурного врача'
 	}
 
@@ -28,14 +29,11 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 	let complains = () => {
 		switch (i) {
 			case 0:
-				return 'прежние';
+				return data.complains[diagnosis];
 			case 1:
 				return (today > operDay) ?
 					`боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}` : 'прежние';
 			case 2:
-				return (today > operDay) ?
-					`боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}` : 'прежние';
-			case 3:
 				return (today > operDay) ?
 					`боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}` : 'прежние';
 			case resultLastIndex:
@@ -62,7 +60,7 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 				return (today > operDay) ?
 					'Стула не было' : 'Стул';
 			default:
-				return 'Стул оформленный, дефекация умеренно болезенная';
+				return 'Стул оформленный, дефекация умеренно болезненная';
 		}
 	}
 	const bandage = () => {

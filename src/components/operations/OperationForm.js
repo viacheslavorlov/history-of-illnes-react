@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import {useDispatch, useSelector} from "react-redux";
 import OperationResult from "./OperationResult";
 import {opisanieOperacii} from "../../utils/utils";
-import * as data from "../../data/data.json";
+import data from "../../data/data.json";
 
 
 const OperationForm = () => {
@@ -24,7 +24,7 @@ const OperationForm = () => {
 			<Formik
 				initialValues={{
 					name: name,
-					operation: data.default.operation[diagnosis],
+					operation: data.operation[diagnosis],
 					birthDate: birthDay,
 					operationDay: '',
 					operationTimeStart: '',
@@ -97,9 +97,9 @@ const OperationForm = () => {
 						onInput={(e) => handleChange(e)}>
 						<option value=""></option>
 						<option value="ЭКХ">ЭКХ</option>
-						<option value="Хроническая передняя анальная трещина">Хроническая передняя анальная трещина
-						</option>
+
 						<option value="Хроническая задняя анальная трещина">Хроническая задняя анальная трещина</option>
+						<option value="Хроническая передняя анальная трещина">Хроническая передняя анальная трещина</option>
 						<option value="Хронический комбинированный геморрой 3 ст">Хронический комбинированный
 							геморрой 3 ст
 						</option>
@@ -118,6 +118,7 @@ const OperationForm = () => {
 						<option value="Полный, интрасфинктерный свищ прямой кишки">Полный, интрасфинктерный свищ
 							прямой кишки
 						</option>
+
 						<option value="Неполный внутренний свищ прямой кишки">Неполный внутренний свищ прямой
 							кишки
 						</option>
@@ -191,7 +192,7 @@ const OperationForm = () => {
 					<button type="submit" className="btn btn-dark">ПРИНЯТЬ</button>
 				</Form>
 			</Formik>
-			<OperationResult/>
+
 		</>
 	);
 };

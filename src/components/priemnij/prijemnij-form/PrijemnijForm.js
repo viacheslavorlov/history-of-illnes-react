@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import {prijemnijStatus} from "../../actions/actions";
 import * as Yup from 'yup';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {complains, statusLocalis} from "../../../utils/utils";
+import * as data from "../../../data/data.json";
 
 import "./PrijemnijForm.css";
 
@@ -11,10 +12,12 @@ import "./PrijemnijForm.css";
 const PrijemnijForm = () => {
 	const dispatch = useDispatch();
 	const [ln, setLn] = useState(null);
-	const [diagnosis, setDiagnosis] = useState('');
+	const [diagnos, setDiagnos] = useState('');
+	// const [anamnez, setAnamnez] = useState('')
+	const {name, birthDay, diagnosis} = useSelector(state => state.mainData)
 
 	const handleChange = (e) => {
-		setDiagnosis(e.target.value);
+		setDiagnos(e.target.value);
 		console.log('handleChange')
 	}
 
@@ -23,7 +26,7 @@ const PrijemnijForm = () => {
 			<h1 className="header">Внесите данные для приёмного статуса</h1>
 			<Formik
 				initialValues={{
-					name: '',
+					name: name,
 					dateTime: '',
 					desieses: null,
 					ln: '',
@@ -35,8 +38,8 @@ const PrijemnijForm = () => {
 					lnNarukachEnd: '',
 					allergis: '',
 					stul: 'стул регулярный, оформленный. Диурез в норме',
-					anamnesis: '',
-					diagnosis: '',
+					anamnesis: data.default.anamnesis[diagnosis || diagnos],
+					diagnosis: diagnosis,
 					svischOut: '',
 					svischIn: '',
 					razmerPolipaX: '',
@@ -102,7 +105,8 @@ const PrijemnijForm = () => {
 					>
 						<option value=""></option>
 						<option value="ЭКХ">ЭКХ</option>
-						<option value="Хроническая анальная трещина">Хроническая анальная трещина</option>
+						<option value="Хроническая задняя анальная трещина">Хроническая анальная трещина</option>
+						<option value="Хроническая передняя анальная трещина">Хроническая анальная трещина</option>
 						<option value="Хронический комбинированный геморрой 3 ст">Хронический комбинированный
 							геморрой 3 ст
 						</option>
@@ -128,7 +132,7 @@ const PrijemnijForm = () => {
 					</Field>
 					<ErrorMessage name="diagnosis" className="error" component="div"/>
 					<br/>
-					{diagnosis.match('свищ') ?
+					{diagnos.match('свищ') ?
 						<>
 							<label htmlFor="svischOut">наружное ответсие свища на: </label>
 							<Field
@@ -146,7 +150,7 @@ const PrijemnijForm = () => {
 							<ErrorMessage name="svischIn" className="error" component="div"/>
 						</> : null
 					}
-					{diagnosis.match('Полип') ?
+					{diagnos.match('Полип') ?
 						<div>
 							<br/>
 							<label htmlFor="razmerPolipaX">Полип на высоте (см): </label>
@@ -170,6 +174,7 @@ const PrijemnijForm = () => {
 						as="textarea"
 						name="anamnesis"
 						id="anamnesis"/>
+					<ErrorMessage name="anamnesis" className="error" component="div"/>
 					<br/>
 					<label htmlFor="stul">Стул: </label>
 					<Field

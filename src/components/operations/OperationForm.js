@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import {Formik, Field, Form, ErrorMessage} from "formik";
-import {operation} from "../actions/actions";
+import {operation, showModal} from "../actions/actions";
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from "react-redux";
-import OperationResult from "./OperationResult";
 import {opisanieOperacii} from "../../utils/utils";
 import data from "../../data/data.json";
 
@@ -29,6 +28,7 @@ const OperationForm = () => {
 					operationDay: '',
 					operationTimeStart: '',
 					operationTimeEnd: '',
+					doctor: 'Орлов В.И.',
 					diagnosis: diagnosis,
 					surgeon: 'Орлов В.И.',
 					assistent: '',
@@ -44,6 +44,7 @@ const OperationForm = () => {
 					Yup.object().shape({
 						name: Yup.string().required(),
 						operation: Yup.string().required(),
+						doctor: Yup.string().required(),
 						birthDate: Yup.date().required(),
 						operationDay: Yup.date().required(),
 						operationTimeStart: Yup.string().required(),
@@ -65,6 +66,7 @@ const OperationForm = () => {
 						...values,
 						opisanieOperacii: opisanieOperacii(values.diagnosis, values.svischOut, values.svischIn, values.razmerPolipaY, values.razmerPolipaX)
 					}));
+					dispatch(showModal());
 				}}>
 				<Form className="form bg-black bg-opacity-10 border-1 border-dark border">
 					<label htmlFor="name">ФИО пациента: </label>
@@ -188,7 +190,13 @@ const OperationForm = () => {
 								<ErrorMessage name={"razmerPolipaY"} className={"error"} component={"div"}/>
 							</> : null
 					}
-
+					<label htmlFor="doctor">Врач: </label>
+					<Field id="doctor" name="doctor" as="select">
+						<option value="Орлов В.И.">Орлов В.И.</option>
+						<option value="Богов В.М.">Богов В.М.</option>
+						<option value="Малышев А.Ю.">Малышев А.Ю.</option>
+						<option value="Проскурин А.А.">Проскурин А.А.</option>
+					</Field>
 					<button type="submit" className="btn btn-dark">ПРИНЯТЬ</button>
 				</Form>
 			</Formik>

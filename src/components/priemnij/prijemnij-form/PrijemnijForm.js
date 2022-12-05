@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Formik, Field, Form, ErrorMessage} from "formik";
-import {prijemnijStatus} from "../../actions/actions";
+import {prijemnijStatus, showModal} from "../../actions/actions";
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from "react-redux";
 import {complains, statusLocalis} from "../../../utils/utils";
@@ -14,7 +14,7 @@ const PrijemnijForm = () => {
 	const [ln, setLn] = useState(null);
 	const [diagnos, setDiagnos] = useState('');
 	// const [anamnez, setAnamnez] = useState('')
-	const {name, birthDay, diagnosis} = useSelector(state => state.mainData)
+	const {name, diagnosis} = useSelector(state => state.mainData)
 
 	const handleChange = (e) => {
 		setDiagnos(e.target.value);
@@ -54,6 +54,7 @@ const PrijemnijForm = () => {
 						complains: complains(values.diagnosis),
 						statusLocalis: statusLocalis(values.diagnosis, values.svischOut, values.svischIn)
 					}));
+					dispatch(showModal());
 				}}
 				validationSchema={
 					Yup.object().shape({

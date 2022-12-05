@@ -3,7 +3,9 @@ const initialState = {
 	mainData: {},
 	daylyNotes: {},
 	prijemnijStatus: {},
-	operation: {}
+	operation: {},
+	showModal: false,
+	modalMesasge: 'Данные добавлены'
 };
 
 //* reducer
@@ -20,6 +22,10 @@ const reducer = (state = initialState, action) => {
 			return {...state, operation: action.payload};
 		case 'MAIN_DATA':
 			return {...state, mainData: action.payload};
+		case 'SHOW_MODAL':
+			return {...state, showModal: true};
+		case 'HIDE_MODAL':
+			return {...state, showModal: false};
 		default:
 			return state;
 	}

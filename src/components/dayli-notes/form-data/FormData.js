@@ -2,7 +2,7 @@ import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from "react-redux";
-import {daylyNotes} from "../../actions/actions";
+import {daylyNotes, showModal} from "../../actions/actions";
 
 import './FormData.css';
 
@@ -23,6 +23,7 @@ const FormData = () => {
 			}} onSubmit={(values) => {
 				dispatch(daylyNotes(values));
 				console.log(JSON.stringify(values, null, 2));
+				dispatch(showModal());
 			}}
 		        validationSchema={Yup.object().shape({
 			        name: Yup.string()

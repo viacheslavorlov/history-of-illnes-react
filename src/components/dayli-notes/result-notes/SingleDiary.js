@@ -5,9 +5,18 @@ import data from "../../../data/data.json";
 
 import "./ResultNotes.css";
 
-const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWounds, diagnosis}) => {
+const SingleDiary = ({
+	                     operDay,
+	                     item,
+	                     i,
+	                     resultLastIndex,
+	                     operation,
+	                     multipleWounds,
+	                     diagnosis,
+	                     afteOperation = false
+                     }) => {
 	let today = item.toLocaleDateString();
-
+	console.log('item', item)
 	let min = Math.floor(Math.random() * 10) * 5;
 	if (min < 10) min = '0' + min;
 
@@ -22,8 +31,13 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 		doctor = 'дежурного врача'
 	}
 
-	if (today === operDay) {
-		dayOfOperation = 'Осмотр перед операцией.';
+	if (today === new Date(operDay).toLocaleDateString()) {
+		if (!afteOperation) {
+			dayOfOperation = 'Осмотр перед операцией.';
+		} else {
+			dayOfOperation = 'Осмотр после операции.'
+		}
+
 	}
 
 	let complains = () => {
@@ -76,7 +90,9 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 	return (
 		<section key={uuidv4()} className={"daiary__item breake__page"}>
 			<div className={"daiary__item__header"}>Осмотр {doctor}.</div>
-			<div className={"daiary__item__date"}>Дата: {today} Время: 8:{min}</div>
+			<div
+				className={"daiary__item__date"}>Дата: {today}. {afteOperation ? 'Время: ' + afteOperation : 'Время:' +
+				' 8:' + {min}}</div>
 			<div className={"daiary__item__date"}>{dayOfOperation}</div>
 			<div className={"daiary__item__info"}>Жалобы: {complains()}.</div>
 			<div className={"daiary__item__info"}>Состояние удовлетворительное.</div>
@@ -95,7 +111,7 @@ const SingleDiary = ({operDay, item, i, resultLastIndex, operation, multipleWoun
 				{doctor === 'заведующего отделением' ? `Диагноз: ${diagnosis}.` : null}
 			</div>
 			<div className={"daiary__item__info"}>{bandage()}</div>
-			<div className={"daiary__item__info"}>{i === resultLastIndex ? '' : 'Дополнения к лечению: нет.'}</div>
+			<div className={"daiary__item__info"}>{i === resultLastIndex ? '' : 'Дополнений к лечению: нет.'}</div>
 			<div className={"daiary__item__info"}>{discharge}</div>
 			<div className="daiary__item__doctor">Врач: Орлов В.И.</div>
 			<div className="daiary__item__doctor">

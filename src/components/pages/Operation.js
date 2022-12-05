@@ -7,6 +7,7 @@ const Operation = () => {
 		<div>
 			<OperationForm/>
 			<OperationResult/>
+
 		</div>
 	);
 };

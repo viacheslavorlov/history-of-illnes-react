@@ -7,13 +7,16 @@ import Prijemnij from "../pages/Prijemnij";
 import Navigation from "../pages/Navigation";
 import MainPage from "../pages/main-page/MainPage";
 import Operation from "../pages/Operation";
+import Modal from "../modal/Modal";
 
 function App() {
+
 	return (
 		<Provider store={store}>
 			<Router>
 			<div className="App">
 				<Navigation/>
+				<Modal message={"Данные добавлены"}/>
 				<Routes>
 					<Route path="/" element={<MainPage/>}/>
 					<Route path="/dayly-notes" element={<DaylyNotes/>}/>

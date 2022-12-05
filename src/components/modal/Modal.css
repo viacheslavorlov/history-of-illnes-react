@@ -1,0 +1,18 @@
+.modal {
+    background-color: rgba(0, 0, 0, .3);
+    padding: 20%;
+}
+
+.modal__content {
+    border-radius: 5%;
+    border: 3px solid green;
+    height: 200px;
+    width: 300px;
+    margin: auto;
+    background-color: white;
+    font-size: 2em;
+    font-weight: 600;
+    opacity: 1;
+    color: green;
+    padding-top: 70px;
+}

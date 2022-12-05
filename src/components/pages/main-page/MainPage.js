@@ -2,7 +2,7 @@ import React from 'react';
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
-import {mainData} from "../../actions/actions";
+import {mainData, showModal} from "../../actions/actions";
 
 const MainPage = () => {
 	const dispatch = useDispatch();
@@ -23,7 +23,8 @@ const MainPage = () => {
 					})
 				}
 				onSubmit={values => {
-					dispatch(mainData({...values}))
+					dispatch(mainData({...values}));
+					dispatch(showModal());
 				}}
 			>
 				<Form className="form bg-black bg-opacity-10 border-1 border-dark border">

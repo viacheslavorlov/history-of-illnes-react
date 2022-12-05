@@ -9,6 +9,7 @@
 .daiary__item {
     display: flex;
     flex-direction: column;
+    line-height: normal;
 }
 
 .daiary__item__header {
@@ -48,25 +49,25 @@
 /*}*/
 
 
-section {
-    break-before: page;
-    break-inside: avoid;
-}
+/*section {*/
+/*    !*break-before: page;*!*/
+/*    break-inside: avoid;*/
+/*}*/
 
 @media print {
     .daiary__item {
-        height: 33.5vh;
+        /*height: 33.5vh;*/
         display: flex;
         flex-direction: column;
     }
     .daiary__item__header {
-        margin-bottom: 1em;
+        margin: 2.5em 0 .5em 0;
     }
 
-    section {
-        break-before: page;
+    .breake__page {
+        /*break-before: page;*/
         break-inside: avoid;
-        break-after: avoid-region;
+        /*break-after: avoid-region;*/
     }
 }
 

@@ -19,9 +19,9 @@ const SingleDiary = ({
 	console.log('item', item)
 	let min = Math.floor(Math.random() * 10) * 5;
 	if (min < 10) min = '0' + min;
-
+	console.log(min)
 	let doctor = 'лечащего врача';
-	let dayOfOperation = null;
+	let dayOfOperation;
 
 	if (i === resultLastIndex || i === 0 || i === 3 || i === 7) {
 		doctor = 'совместно с заведующим отделением';
@@ -31,7 +31,7 @@ const SingleDiary = ({
 		doctor = 'дежурного врача'
 	}
 
-	if (today === new Date(operDay).toLocaleDateString()) {
+	if (today === operDay) {
 		if (!afteOperation) {
 			dayOfOperation = 'Осмотр перед операцией.';
 		} else {
@@ -40,16 +40,20 @@ const SingleDiary = ({
 
 	}
 
+	console.log('today', today);
+	console.log('operDay', operDay);
+
 	let complains = () => {
+		if (afteOperation) return `боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}`;
 		switch (i) {
 			case 0:
 				return data.complains[diagnosis];
 			case 1:
-				return (today > operDay) ?
-					`боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}` : 'прежние';
+				return (today <= operDay) ?
+					'прежние' : `боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}`;
 			case 2:
-				return (today > operDay) ?
-					`боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}` : 'прежние';
+				return (today <= operDay) ?
+					'прежние' : `боли в области послеоперационн${multipleWounds === 'да' ? 'ых' : 'ой'} ран${multipleWounds === 'да' ? '' : 'ы'}`;
 			case resultLastIndex:
 				return 'нет';
 			default:
@@ -91,8 +95,7 @@ const SingleDiary = ({
 		<section key={uuidv4()} className={"daiary__item breake__page"}>
 			<div className={"daiary__item__header"}>Осмотр {doctor}.</div>
 			<div
-				className={"daiary__item__date"}>Дата: {today}. {afteOperation ? 'Время: ' + afteOperation : 'Время:' +
-				' 8:' + {min}}</div>
+				className={"daiary__item__date"}>Дата: {today}. {afteOperation ? 'Время: ' + afteOperation : `Время: 8:${min}`}</div>
 			<div className={"daiary__item__date"}>{dayOfOperation}</div>
 			<div className={"daiary__item__info"}>Жалобы: {complains()}.</div>
 			<div className={"daiary__item__info"}>Состояние удовлетворительное.</div>

@@ -56,9 +56,12 @@
 
 @media print {
     .daiary__item {
-        /*height: 33.5vh;*/
+        margin: 0 auto;
+        break-inside: avoid-page;
+        height: 33.5vh;
         display: flex;
         flex-direction: column;
+        width: 80vw;
     }
     .daiary__item__header {
         margin: 2.5em 0 .5em 0;
@@ -67,7 +70,7 @@
     .breake__page {
         /*break-before: page;*/
         break-inside: avoid;
-        /*break-after: avoid-region;*/
+        break-after: avoid-region;
     }
 }
 
